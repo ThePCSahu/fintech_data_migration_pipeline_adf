@@ -3,21 +3,21 @@
 
 ## Tech Stack
 
+- **SQL**
 - **Python**
+- **PySpark**
 - **Azure Data Factory (ADF)**
+- **Azure Databricks**
 - **Azure SQL Database**
 - **Azure Synapse Analytics**
 - **Azure Data Lake Storage (ADLS)**
-- **Azure Logic Apps**
-- **Azure DevOps**
-- **Databricks**
-- **PySpark**
 - **Parquet/Delta Formats**
-- **SQL**
+- **Azure DevOps**
+- **Azure Logic Apps**
 
 ## Project Overview
 
-This project is a **Fintech Data Migration Pipeline** built using a combination of **Azure** services and **Python**. The pipeline is designed to efficiently handle and process large volumes of financial data. It follows the **Medallion Architecture** and adopts a **Star Schema** for the data warehouse design.
+This project is a **Fintech Data Migration Pipeline** built using a combination of **Azure** services and **PySpark**. The pipeline is designed to efficiently handle and process large volumes of financial data. It follows the **Medallion Architecture** and adopts a **Star Schema** for the data warehouse design.
 
 ## Architecture
 
@@ -32,39 +32,39 @@ The pipeline uses a **Medallion Architecture**, which consists of three layers:
 
 ### Data Warehouse Design
 
-        +-------------------+          +-------------------------+          +-----------------------+         +-------------------+   
-        |    dim_loans      |          |     fact_payments       |          |   fact_transactions   |         |    dim_accounts   |   
-        +-------------------+          +-------------------------+          +-----------------------+         +-------------------+
-        | loan_id     INT   |          | payment_id    INT PK    |          | trans_id    INT PK    |         | account_id   INT  |
-        | loan_type   STR   |<---------| loan_id       INT FK    |          | account_id  INT FK    |-------->| acct_type    STR  |
-        | loan_amt    FLOAT |          | customer_id   INT FK    |          | customer_id INT FK    |         | balance      FLOAT| 
-        | int_rate    FLOAT |          | payment_dt    DT        |          | trans_dt    DT        |         | open_date    DATE |
-        | loan_start  DATE  |          | payment_amt   FLOAT     |          | amount      FLOAT     |         | acct_age_yrs INT  |
-        | loan_end    DATE  |          | payment_method STR      |          | trans_type  STR       |         |                   |  
-        | tot_interest FLOAT|          |                         |          | description STR       |         |                   |  
-        | loan_dur_yrs INT  |          |                         |          |                       |         |                   |
-        +-------------------+          +-------------------------+          +-----------------------+         +-------------------+ 
-                                                       \                            /                                                    
-                                                        \                          /                                                    
-                                                         \                        /                                                      
-                                                          \                      /                                                      
-                                                           \                    /                                                      
-                                                            v                  v                                                                       
-                                                            +-------------------+                                                                
-                                                            |   dim_customers   |                                                                
-                                                            +-------------------+                                                                
-                                                            | customer_id  INT  |                                                                
-                                                            | first_name   STR  |                                                                
-                                                            | last_name    STR  |                                                                
-                                                            | email        STR  |                                                                
-                                                            | phone_no     STR  |                                                                
-                                                            | address      STR  |                                                                
-                                                            | city         STR  |                                                                
-                                                            | state        STR  |                                                                
-                                                            | country      STR  |                                                                
-                                                            | zip_code     STR  |                                                                
-                                                            | signup_dt    DT   |                                                                
-                                                            +-------------------+              
+     +-------------------+          +-------------------------+          +-----------------------+         +-------------------+   
+     |    dim_loans      |          |     fact_payments       |          |   fact_transactions   |         |    dim_accounts   |   
+     +-------------------+          +-------------------------+          +-----------------------+         +-------------------+
+     | loan_id     INT   |          | payment_id    INT PK    |          | trans_id    INT PK    |         | account_id   INT  |
+     | loan_type   STR   |<---------| loan_id       INT FK    |          | account_id  INT FK    |-------->| acct_type    STR  |
+     | loan_amt    FLOAT |          | customer_id   INT FK    |          | customer_id INT FK    |         | balance      FLOAT| 
+     | int_rate    FLOAT |          | payment_dt    DT        |          | trans_dt    DT        |         | open_date    DATE |
+     | loan_start  DATE  |          | payment_amt   FLOAT     |          | amount      FLOAT     |         | acct_age_yrs INT  |
+     | loan_end    DATE  |          | payment_method STR      |          | trans_type  STR       |         |                   |  
+     | tot_interest FLOAT|          |                         |          | description STR       |         |                   |  
+     | loan_dur_yrs INT  |          |                         |          |                       |         |                   |
+     +-------------------+          +-------------------------+          +-----------------------+         +-------------------+ 
+                                                    \                            /                                                    
+                                                     \                          /                                                    
+                                                      \                        /                                                      
+                                                       \                      /                                                      
+                                                        \                    /                                                      
+                                                         v                  v                                                                       
+                                                         +-------------------+                                                                
+                                                         |   dim_customers   |                                                                
+                                                         +-------------------+                                                                
+                                                         | customer_id  INT  |                                                                
+                                                         | first_name   STR  |                                                                
+                                                         | last_name    STR  |                                                                
+                                                         | email        STR  |                                                                
+                                                         | phone_no     STR  |                                                                
+                                                         | address      STR  |                                                                
+                                                         | city         STR  |                                                                
+                                                         | state        STR  |                                                                
+                                                         | country      STR  |                                                                
+                                                         | zip_code     STR  |                                                                
+                                                         | signup_dt    DT   |                                                                
+                                                         +-------------------+              
 
 ### Data Flow
 
